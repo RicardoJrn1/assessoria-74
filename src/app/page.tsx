@@ -17,7 +17,6 @@ const HomePage = () => {
       <ParceriasSection />
       <NumerosFalamSection />
       <TrintaDiasSection />
-      <ResultadosReaisSection />
       <InvistaSection />
       <QuatrocentosMilhoesSection />
       <ResultadosSection />
