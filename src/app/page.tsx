@@ -8,6 +8,7 @@ import QuatrocentosMilhoesSection from "../components/400milhoes-section";
 import ResultadosSection from "../components/resultados-section";
 import ResultadosReaisSection from "../components/resultadosreais-section";
 import QuemSomosSection from "../components/quemsomos-section";
+import ModelosSection from "../components/modelos-section";
 
 
 const HomePage = () => {
@@ -23,6 +24,7 @@ const HomePage = () => {
       <ResultadosSection />
       <ResultadosReaisSection />
       <QuemSomosSection />
+      <ModelosSection />
     </>
   );
 };
