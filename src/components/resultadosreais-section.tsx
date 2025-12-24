@@ -94,6 +94,18 @@ export default function ResultadosReaisSection() {
               Resultados Reais.
             </span>
           </motion.h2>
+
+          {/* Aviso Mobile */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.5, duration: 0.5 }}
+            className="mt-4 md:hidden flex items-center justify-center gap-2 text-white/40 text-sm"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4"><path strokeLinecap="round" strokeLinejoin="round" d="M15.042 21.672 13.684 16.6m0 0-2.51 2.225.569-9.47 5.227 7.917-3.286-.672ZM12 2.25V4.5m5.834.166-1.591 1.591M20.25 10.5H18M7.757 14.743l-1.59 1.59M6 10.5H3.75m4.007-4.243-1.59-1.59" /></svg>
+            <span>Toque nos cards para ver detalhes</span>
+          </motion.div>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto">
@@ -106,6 +118,7 @@ export default function ResultadosReaisSection() {
               viewport={{ once: true }}
               onHoverStart={() => setHoveredIndex(index)}
               onHoverEnd={() => setHoveredIndex(null)}
+              onClick={() => setHoveredIndex(hoveredIndex === index ? null : index)}
               transition={{
                 opacity: { duration: 0.5, delay: index * 0.1 },
                 y: { duration: 0.5, delay: index * 0.1 },

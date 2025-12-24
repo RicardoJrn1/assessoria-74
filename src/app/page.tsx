@@ -7,6 +7,7 @@ import InvistaSection from "../components/invista-section";
 import QuatrocentosMilhoesSection from "../components/400milhoes-section";
 import ResultadosSection from "../components/resultados-section";
 import ResultadosReaisSection from "../components/resultadosreais-section";
+import QuemSomosSection from "../components/quemsomos-section";
 
 
 const HomePage = () => {
@@ -21,6 +22,7 @@ const HomePage = () => {
       <QuatrocentosMilhoesSection />
       <ResultadosSection />
       <ResultadosReaisSection />
+      <QuemSomosSection />
     </>
   );
 };
