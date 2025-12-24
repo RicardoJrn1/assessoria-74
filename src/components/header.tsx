@@ -44,25 +44,25 @@ export const Header: React.FC = () => {
         <nav className="absolute left-1/2 -translate-x-1/2">
           <ul className="flex items-center gap-8 text-white font-medium">
             <li>
-              <Link href="/" className="relative group">
+              <Link href="/#inicio" className="relative group">
                 Início
                 <span className="absolute left-0 -bottom-1 w-0 h-0.5 bg-orange-500 transition-all duration-300 group-hover:w-full"></span>
               </Link>
             </li>
             <li>
-              <Link href="/sobre" className="relative group">
+              <Link href="/#quem-somos" className="relative group">
                 Quem Somos
                 <span className="absolute left-0 -bottom-1 w-0 h-0.5 bg-orange-500 transition-all duration-300 group-hover:w-full"></span>
               </Link>
             </li>
             <li>
-              <Link href="/contato" className="relative group">
+              <Link href="/#solucoes" className="relative group">
                 Soluções
                 <span className="absolute left-0 -bottom-1 w-0 h-0.5 bg-orange-500 transition-all duration-300 group-hover:w-full"></span>
               </Link>
             </li>
             <li>
-              <Link href="/blog" className="relative group">
+              <Link href="/#resultados" className="relative group">
                 Resultados
                 <span className="absolute left-0 -bottom-1 w-0 h-0.5 bg-orange-500 transition-all duration-300 group-hover:w-full"></span>
               </Link>
@@ -78,7 +78,7 @@ export const Header: React.FC = () => {
 
         {/* Botão de Ação */}
         <Link
-          href="/contato"
+          href="/#contato"
           className="px-6 py-2 bg-orange-500 text-white font-bold rounded-full hover:bg-orange-600 transition-colors shadow-lg hover:shadow-orange-500/20"
         >
           Fale com um especialista

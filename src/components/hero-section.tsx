@@ -6,7 +6,7 @@ import Link from "next/link";
 
 const HeroSection: React.FC = () => {
   return (
-    <section className="relative min-h-screen overflow-hidden">
+    <section id="inicio" className="relative min-h-screen overflow-hidden">
         
       {/* Conteúdo */}
       <div className="relative z-10 container mx-auto px-4">

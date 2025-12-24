@@ -76,7 +76,7 @@ export default function ResultadosReaisSection() {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
   return (
-    <section className="w-full py-20">
+    <section id="solucoes" className="w-full py-20">
       <div className="container mx-auto px-4">
         <div className="mb-16 text-center">
           <motion.h2

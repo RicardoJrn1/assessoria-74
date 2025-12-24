@@ -6,7 +6,7 @@ import { HiOutlineChartBar, HiOutlineBriefcase, HiOutlineCursorArrowRays } from 
 
 const QuemSomosSection: React.FC = () => {
   return (
-    <section className="relative text-white py-12 md:py-16 overflow-hidden">
+    <section id="quem-somos" className="relative text-white py-12 md:py-16 overflow-hidden">
       {/* linha vertical central sutil */}
       <div className="pointer-events-none absolute inset-y-0 left-1/2 hidden md:block w-px bg-white/10" />
 

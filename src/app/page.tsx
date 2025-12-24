@@ -9,6 +9,9 @@ import ResultadosSection from "../components/resultados-section";
 import ResultadosReaisSection from "../components/resultadosreais-section";
 import QuemSomosSection from "../components/quemsomos-section";
 import ModelosSection from "../components/modelos-section";
+import FaqSection from "../components/faq-section";
+import CtaFinalSection from "../components/ctafinal-section";
+import Footer from "../components/footer";
 
 
 const HomePage = () => {
@@ -25,6 +28,9 @@ const HomePage = () => {
       <ResultadosReaisSection />
       <QuemSomosSection />
       <ModelosSection />
+      <FaqSection />
+      <CtaFinalSection />
+      <Footer />
     </>
   );
 };
