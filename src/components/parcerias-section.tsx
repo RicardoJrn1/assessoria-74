@@ -4,15 +4,15 @@ import React, { useEffect, useRef } from "react";
 import { motion, useMotionValue, animate, type AnimationPlaybackControls } from "framer-motion";
 
 const partners = [
-  "Miolar",
-  "Açãí da Barra",
-  "Emov",
-  "Volkano",
-  "LegNet",
-  "Chilli Beans",
-  "Unisep",
-  "Fleurity",
-  "Bão",
+  { name: "Miolar", src: "/logo-miolar.png" },
+  { name: "Açãí da Barra", src: "/logo-acai.png" },
+  { name: "Emov", src: "/logo-emov.png" },
+  { name: "Volkano", src: "/logo-volkano.png" },
+  { name: "LegNet", src: "/logo-legnet.png" },
+  { name: "Chilli Beans", src: "/logo-chilli.png" },
+  { name: "Unisep", src: "/logo-unisep.png" },
+  { name: "Fleurity", src: "/logo-fleurity.png" },
+  { name: "Cheirin Bão", src: "/logo-bao.png" },
 ];
 
 const ParceriasSection: React.FC = () => {
@@ -61,16 +61,18 @@ const ParceriasSection: React.FC = () => {
 
         <motion.div
           className="flex gap-12 items-center whitespace-nowrap"
-          style={{ x }} // aqui está a mágica
+          style={{ x }}
         >
           {[...partners, ...partners, ...partners, ...partners].map((partner, index) => (
             <div
               key={index}
-              className="flex items-center justify-center min-w-[200px] h-24 bg-white/5 rounded-xl border border-white/10 hover:border-orange-500/50 transition-colors group cursor-default"
+              className="flex items-center justify-center min-w-[200px] h-24 bg-white/5 rounded-xl border border-white/10 hover:border-orange-500/50 transition-colors group cursor-default p-4"
             >
-              <span className="text-xl font-bold text-white/40 group-hover:text-white transition-colors">
-                {partner}
-              </span>
+              <img
+                src={partner.src}
+                alt={partner.name}
+                className="w-full h-full object-contain opacity-40 group-hover:opacity-100 grayscale group-hover:grayscale-0 transition-all duration-300"
+              />
             </div>
           ))}
         </motion.div>

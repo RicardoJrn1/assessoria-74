@@ -7,11 +7,11 @@ import Link from "next/link";
 const HeroSection: React.FC = () => {
   return (
     <section id="inicio" className="relative min-h-screen overflow-hidden">
-        
+
       {/* Conteúdo */}
       <div className="relative z-10 container mx-auto px-4">
         <div className="flex min-h-screen flex-col items-center">
-          
+
           {/* Topo do Hero */}
           <div className="pt-28 md:pt-36 text-center max-w-5xl">
             <motion.h1
@@ -93,6 +93,24 @@ const HeroSection: React.FC = () => {
                   </svg>
                 </span>
               </Link>
+            </motion.div>
+
+            {/* Fotos abaixo do botão */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.55 }}
+              className="mt-12 flex justify-center -space-x-6"
+            >
+              {[1, 2, 3, 4].map((num) => (
+                <img
+                  key={num}
+                  src={`/hero-foto-conj-${num}.avif`}
+                  alt={`Destaque ${num}`}
+                  className={`h-24 w-24 md:h-32 md:w-32 rounded-full border-4 border-[#050505] shadow-2xl object-cover hover:scale-110 hover:z-10 relative transition-transform duration-300 ${num === 1 ? "object-[50%_25%]" : "object-top"
+                    }`}
+                />
+              ))}
             </motion.div>
           </div>
 
