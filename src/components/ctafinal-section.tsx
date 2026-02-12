@@ -1,12 +1,34 @@
-"use client";
+"use client"
 
-import React from "react";
-import { motion } from "framer-motion";
-import { HiOutlineDocumentText, HiOutlinePhone } from "react-icons/hi2";
+import { useState } from "react"
+import { motion } from "framer-motion"
+import { HiOutlineDocumentText, HiOutlinePhone } from "react-icons/hi2"
 
-const CtaFinalSection: React.FC = () => {
+export default function CtaFinalSection() {
+  const [formState, setFormState] = useState<"idle" | "loading" | "success">("idle")
+  const [name, setName] = useState("")
+  const [email, setEmail] = useState("")
+  const [phone, setPhone] = useState("")
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    setFormState("loading")
+
+    const msg = `Olá! Meu nome é ${name}, gostaria de receber um diagnóstico da Assessoria 74.\n\nE-mail: ${email}\nTelefone: ${phone}`
+    const url = `https://wa.me/554699007494?text=${encodeURIComponent(msg)}`
+
+    window.open(url, "_blank")
+
+    setTimeout(() => {
+      setFormState("success")
+      setName("")
+      setEmail("")
+      setPhone("")
+    }, 500)
+  }
+
   return (
-    <section id="contato" className="w-full py-12 text-white">
+    <section id="contato" className="w-full py-16 md:py-24 text-white bg-white/[0.02] border-t border-white/5">
       <div className="container mx-auto px-4 max-w-6xl">
         {/* Título */}
         <div className="mb-12 text-center">
@@ -75,46 +97,70 @@ const CtaFinalSection: React.FC = () => {
             transition={{ duration: 0.6 }}
             className="p-8 rounded-3xl bg-white/5 border border-white/10"
           >
-            <form className="space-y-4">
-              <div>
-                <label htmlFor="name" className="block text-sm font-medium text-white/80 mb-1">Nome</label>
-                <input
-                  type="text"
-                  id="name"
-                  placeholder="Seu nome completo"
-                  className="w-full px-4 py-3 rounded-xl bg-black/20 border border-white/10 text-white placeholder-white/30 focus:outline-none focus:border-orange-500 transition-colors"
-                />
+            {formState === "success" ? (
+              <div className="text-center py-8">
+                <div className="text-5xl mb-4">&#10003;</div>
+                <h3 className="text-2xl font-bold text-white mb-2">Dados enviados!</h3>
+                <p className="text-white/70">
+                  Em breve um especialista entrará em contato com você.
+                </p>
+                <button
+                  onClick={() => setFormState("idle")}
+                  className="mt-6 px-6 py-2 rounded-xl border border-white/20 text-white/80 hover:bg-white/10 transition-colors"
+                >
+                  Enviar novamente
+                </button>
               </div>
-              <div>
-                <label htmlFor="email" className="block text-sm font-medium text-white/80 mb-1">E-mail Corporativo</label>
-                <input
-                  type="email"
-                  id="email"
-                  placeholder="seu@empresa.com.br"
-                  className="w-full px-4 py-3 rounded-xl bg-black/20 border border-white/10 text-white placeholder-white/30 focus:outline-none focus:border-orange-500 transition-colors"
-                />
-              </div>
-              <div>
-                <label htmlFor="phone" className="block text-sm font-medium text-white/80 mb-1">Telefone</label>
-                <input
-                  type="tel"
-                  id="phone"
-                  placeholder="(00) 00000-0000"
-                  className="w-full px-4 py-3 rounded-xl bg-black/20 border border-white/10 text-white placeholder-white/30 focus:outline-none focus:border-orange-500 transition-colors"
-                />
-              </div>
-              <button
-                type="submit"
-                className="w-full py-4 rounded-xl bg-orange-500 hover:bg-orange-600 text-white font-bold text-lg transition-all transform hover:scale-[1.02] mt-4 shadow-lg shadow-orange-500/20"
-              >
-                Receber Diagnóstico
-              </button>
-            </form>
+            ) : (
+              <form onSubmit={handleSubmit} className="space-y-4">
+                <div>
+                  <label htmlFor="name" className="block text-sm font-medium text-white/80 mb-1">Nome</label>
+                  <input
+                    type="text"
+                    id="name"
+                    required
+                    placeholder="Seu nome completo"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    className="w-full px-4 py-3 rounded-xl bg-black/20 border border-white/10 text-white placeholder-white/30 focus:outline-none focus:border-orange-500 transition-colors"
+                  />
+                </div>
+                <div>
+                  <label htmlFor="email" className="block text-sm font-medium text-white/80 mb-1">E-mail Corporativo</label>
+                  <input
+                    type="email"
+                    id="email"
+                    required
+                    placeholder="seu@empresa.com.br"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="w-full px-4 py-3 rounded-xl bg-black/20 border border-white/10 text-white placeholder-white/30 focus:outline-none focus:border-orange-500 transition-colors"
+                  />
+                </div>
+                <div>
+                  <label htmlFor="phone" className="block text-sm font-medium text-white/80 mb-1">Telefone</label>
+                  <input
+                    type="tel"
+                    id="phone"
+                    required
+                    placeholder="(00) 00000-0000"
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
+                    className="w-full px-4 py-3 rounded-xl bg-black/20 border border-white/10 text-white placeholder-white/30 focus:outline-none focus:border-orange-500 transition-colors"
+                  />
+                </div>
+                <button
+                  type="submit"
+                  disabled={formState === "loading"}
+                  className="w-full py-4 rounded-xl bg-orange-500 hover:bg-orange-600 disabled:opacity-70 disabled:cursor-not-allowed text-white font-bold text-lg transition-all transform hover:scale-[1.02] mt-4 shadow-lg shadow-orange-500/20"
+                >
+                  {formState === "loading" ? "Enviando..." : "Receber Diagnóstico"}
+                </button>
+              </form>
+            )}
           </motion.div>
         </div>
       </div>
     </section>
-  );
-};
-
-export default CtaFinalSection;
+  )
+}

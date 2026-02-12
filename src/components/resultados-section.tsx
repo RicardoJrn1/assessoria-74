@@ -1,12 +1,13 @@
-"use client";
+"use client"
 
-import React from "react";
-import { motion, useMotionValue, animate } from "framer-motion";
-import Link from "next/link";
+import { useRef, useState, useEffect } from "react"
+import { motion, useMotionValue, animate } from "framer-motion"
+import Image from "next/image"
+import Link from "next/link"
 
-const ResultadosSection: React.FC = () => {
+export default function ResultadosSection() {
   return (
-    <section id="resultados" className="w-full py-12 overflow-hidden">
+    <section id="resultados" className="w-full py-16 md:py-24 overflow-hidden border-t border-white/5">
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-y-16 gap-x-12 max-w-6xl mx-auto items-center">
 
@@ -19,9 +20,11 @@ const ResultadosSection: React.FC = () => {
             transition={{ duration: 0.6 }}
           >
             <div className="relative rounded-2xl overflow-hidden shadow-2xl">
-              <img
+              <Image
                 src="/resultados.avif"
                 alt="Acompanhamento de resultados pelo WhatsApp"
+                width={600}
+                height={400}
                 className="w-full h-auto object-cover"
               />
             </div>
@@ -52,7 +55,7 @@ const ResultadosSection: React.FC = () => {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.3 }}
-            className="flex justify-center md:justify-start pl-6 md:pl-35 order-4 md:order-none"
+            className="flex justify-center md:justify-start pl-6 md:pl-[140px] order-4 md:order-none"
           >
             <div className="relative z-20">
               <GlowPillAnimated />
@@ -77,107 +80,91 @@ const ResultadosSection: React.FC = () => {
               seu negócio.
             </p>
             <div className="mt-8 flex justify-center md:justify-start">
-              <Link
-                href="/contato"
-                className="group inline-flex items-center gap-2 md:gap-3 rounded-full bg-red-500 px-6 py-3 md:px-8 md:py-4 text-base md:text-lg font-bold text-white shadow-lg shadow-red-500/20 transition-all hover:bg-red-600 hover:scale-105"
+              <a
+                href="https://wa.me/554699007494?text=Ol%C3%A1!%20Quero%20facilitar%20meu%20neg%C3%B3cio%20com%20a%20Assessoria%2074."
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group inline-flex items-center gap-2 md:gap-3 rounded-full bg-orange-500 px-6 py-3 md:px-8 md:py-4 text-base md:text-lg font-bold text-white shadow-lg shadow-orange-500/20 transition-all hover:bg-orange-600 hover:scale-105"
               >
                 Facilite meu negócio
-                <span className="flex h-6 w-6 md:h-8 md:w-8 items-center justify-center rounded-full bg-black text-white transition-transform group-hover:translate-x-1">
+                <span className="flex h-6 w-6 md:h-8 md:w-8 items-center justify-center rounded-full bg-white text-orange-600 transition-transform group-hover:translate-x-1">
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-3 h-3 md:w-4 md:h-4">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
                   </svg>
                 </span>
-              </Link>
+              </a>
             </div>
           </motion.div>
 
         </div>
       </div>
     </section>
-  );
-};
-
-export default ResultadosSection;
+  )
+}
 
 function GlowPillAnimated() {
-  const trackRef = React.useRef<HTMLDivElement | null>(null);
+  const trackRef = useRef<HTMLDivElement | null>(null)
+  const x = useMotionValue(0)
+  const [maxX, setMaxX] = useState(0)
+  const [active, setActive] = useState<"left" | "right" | null>("left")
 
-  // x do knob em pixels
-  const x = useMotionValue(0);
+  const PAD = 8
+  const KNOB = 48
+  const ICON = 48
 
-  const [maxX, setMaxX] = React.useState(0);
-  const [active, setActive] = React.useState<"left" | "right" | null>("left");
-
-  // medidas visuais (tem que bater com Tailwind)
-  const PAD = 8; // left-2 / right-2
-  const KNOB = 48; // h-12 w-12
-  const ICON = 48; // h-12 w-12
-
-  // calcula maxX baseado na largura real do pill
-  React.useEffect(() => {
-    const track = trackRef.current;
-    if (!track) return;
+  useEffect(() => {
+    const track = trackRef.current
+    if (!track) return
 
     const compute = () => {
-      const w = track.clientWidth;
-      // knob vai do PAD até (w - PAD - KNOB)
-      const nextMax = Math.max(0, w - PAD * 2 - KNOB);
-      setMaxX(nextMax);
-    };
+      const w = track.clientWidth
+      const nextMax = Math.max(0, w - PAD * 2 - KNOB)
+      setMaxX(nextMax)
+    }
 
-    compute();
-    const ro = new ResizeObserver(compute);
-    ro.observe(track);
-    return () => ro.disconnect();
-  }, []);
+    compute()
+    const ro = new ResizeObserver(compute)
+    ro.observe(track)
+    return () => ro.disconnect()
+  }, [])
 
-  // anima o knob (loop)
-  React.useEffect(() => {
-    if (maxX <= 0) return;
+  useEffect(() => {
+    if (maxX <= 0) return
 
     const controls = animate(x, [0, maxX, 0], {
       duration: 3.2,
       ease: "easeInOut",
       repeat: Infinity,
-    });
+    })
 
-    return () => controls.stop();
-  }, [maxX, x]);
+    return () => controls.stop()
+  }, [maxX, x])
 
-  // detecta quando o knob está "em cima" dos ícones
-  React.useEffect(() => {
+  useEffect(() => {
     const unsub = x.on("change", (v) => {
-      // centro do knob (relativo ao track)
-      const knobCenter = PAD + v + KNOB / 2;
+      const knobCenter = PAD + v + KNOB / 2
+      const leftIconCenter = PAD + ICON / 2
+      const rightIconCenter = PAD + maxX + ICON / 2
+      const distLeft = Math.abs(knobCenter - leftIconCenter)
+      const distRight = Math.abs(knobCenter - rightIconCenter)
+      const threshold = 18
 
-      const leftIconCenter = PAD + ICON / 2;
-      const rightIconCenter = PAD + maxX + ICON / 2;
+      if (distLeft <= threshold) setActive("left")
+      else if (distRight <= threshold) setActive("right")
+      else setActive(null)
+    })
 
-      const distLeft = Math.abs(knobCenter - leftIconCenter);
-      const distRight = Math.abs(knobCenter - rightIconCenter);
-
-      // raio de "ativação"
-      const threshold = 18;
-
-      if (distLeft <= threshold) setActive("left");
-      else if (distRight <= threshold) setActive("right");
-      else setActive(null);
-    });
-
-    return () => unsub();
-  }, [x, maxX]);
+    return () => unsub()
+  }, [x, maxX])
 
   return (
     <div className="relative">
-      {/* glow externo */}
       <div className="absolute -inset-10 rounded-full bg-orange-500/10 blur-2xl" />
 
-      {/* pill (trilho) */}
       <div
         ref={trackRef}
         className="relative h-14 w-[260px] rounded-full border border-orange-500/40 bg-gradient-to-r from-orange-500/10 via-orange-500/25 to-orange-500/10 backdrop-blur-md overflow-hidden"
       >
-        {/* ícone esquerdo FIXO */}
         <div
           className={[
             "absolute left-2 top-1/2 -translate-y-1/2 z-10",
@@ -190,7 +177,6 @@ function GlowPillAnimated() {
           <SparkIcon active={active === "left"} />
         </div>
 
-        {/* ícone direito FIXO */}
         <div
           className={[
             "absolute right-2 top-1/2 -translate-y-1/2 z-10",
@@ -203,20 +189,17 @@ function GlowPillAnimated() {
           <GlobeIcon active={active === "right"} />
         </div>
 
-        {/* knob branco (ÚNICO elemento que se move) */}
         <motion.div
           className="absolute left-2 top-1/2 -translate-y-1/2 grid h-12 w-12 place-items-center rounded-full bg-white ring-1 ring-orange-500/30 shadow-[0_0_25px_rgba(255,255,255,0.35)]"
           style={{ x }}
         />
 
-        {/* ring interno premium */}
         <div className="pointer-events-none absolute inset-0 rounded-full ring-1 ring-white/10" />
       </div>
     </div>
-  );
+  )
 }
 
-/* Ícones com “resposta” (mudam levemente quando ativo) */
 function SparkIcon({ active }: { active?: boolean }) {
   return (
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -230,7 +213,7 @@ function SparkIcon({ active }: { active?: boolean }) {
         opacity="0.9"
       />
     </svg>
-  );
+  )
 }
 
 function GlobeIcon({ active }: { active?: boolean }) {
@@ -255,5 +238,5 @@ function GlobeIcon({ active }: { active?: boolean }) {
         strokeWidth="1.8"
       />
     </svg>
-  );
+  )
 }

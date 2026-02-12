@@ -1,11 +1,9 @@
-"use client";
+import Image from "next/image"
+import Link from "next/link"
+import { FaInstagram, FaLinkedin, FaWhatsapp } from "react-icons/fa"
 
-import React from "react";
-import Link from "next/link";
-import { FaInstagram, FaLinkedin, FaWhatsapp } from "react-icons/fa";
-
-const Footer: React.FC = () => {
-  const currentYear = new Date().getFullYear();
+export default function Footer() {
+  const currentYear = new Date().getFullYear()
 
   return (
     <footer className="w-full bg-[#050505] border-t border-white/10 pt-16 pb-8 text-white relative overflow-hidden">
@@ -16,8 +14,14 @@ const Footer: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
           {/* Coluna 1: Marca e Sobre */}
           <div className="space-y-6">
-            <Link href="/" className="text-3xl font-extrabold text-orange-500 tracking-tighter inline-block">
-              74
+            <Link href="/" className="inline-block">
+              <Image
+                src="/logo-74.png"
+                alt="Assessoria 74"
+                width={56}
+                height={56}
+                className="h-14 w-auto"
+              />
             </Link>
             <p className="text-white/60 text-sm leading-relaxed max-w-xs">
               Transformamos dados em faturamento. Especialistas em marketing de performance e vendas para negócios que buscam escala real.
@@ -41,7 +45,7 @@ const Footer: React.FC = () => {
                 <Link href="/blog" className="hover:text-orange-500 transition-colors duration-300">Blog</Link>
               </li>
               <li>
-                <Link href="/#contato" className="hover:text-orange-500 transition-colors duration-300">Contato</Link>
+                <a href="https://wa.me/554699007494?text=Ol%C3%A1!%20Gostaria%20de%20entrar%20em%20contato%20com%20a%20Assessoria%2074." target="_blank" rel="noopener noreferrer" className="hover:text-orange-500 transition-colors duration-300">Contato</a>
               </li>
             </ul>
           </div>
@@ -61,7 +65,7 @@ const Footer: React.FC = () => {
             <h4 className="text-lg font-bold mb-6 text-white">Conecte-se</h4>
             <div className="flex gap-4 mb-6">
               <a
-                href="https://instagram.com"
+                href="https://www.instagram.com/aassessoria74/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="p-3 rounded-full bg-white/5 border border-white/10 hover:bg-orange-500 hover:border-orange-500 hover:text-white transition-all duration-300 text-white/70 group"
@@ -70,7 +74,7 @@ const Footer: React.FC = () => {
                 <FaInstagram size={18} className="group-hover:scale-110 transition-transform" />
               </a>
               <a
-                href="https://linkedin.com"
+                href="https://www.linkedin.com/company/assessoria74/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="p-3 rounded-full bg-white/5 border border-white/10 hover:bg-orange-500 hover:border-orange-500 hover:text-white transition-all duration-300 text-white/70 group"
@@ -79,7 +83,7 @@ const Footer: React.FC = () => {
                 <FaLinkedin size={18} className="group-hover:scale-110 transition-transform" />
               </a>
               <a
-                href="https://wa.me/"
+                href="https://wa.me/554699007494?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20Assessoria%2074."
                 target="_blank"
                 rel="noopener noreferrer"
                 className="p-3 rounded-full bg-white/5 border border-white/10 hover:bg-orange-500 hover:border-orange-500 hover:text-white transition-all duration-300 text-white/70 group"
@@ -99,13 +103,8 @@ const Footer: React.FC = () => {
           <p className="text-white/40 text-xs text-center md:text-left">
             &copy; {currentYear} Assessoria 74. Todos os direitos reservados.
           </p>
-          <p className="text-white/40 text-xs flex items-center gap-1">
-            Feito com <span className="text-orange-500 animate-pulse">⚡</span> para alta performance.
-          </p>
         </div>
       </div>
     </footer>
-  );
-};
-
-export default Footer;
+  )
+}

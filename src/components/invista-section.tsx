@@ -1,12 +1,11 @@
 "use client";
 
-import React from "react";
-import { motion } from "framer-motion";
-import Link from "next/link";
+import { motion } from "framer-motion"
+import Link from "next/link"
 
 export default function InvistaSection() {
   return (
-    <section className="w-full py-12">
+    <section className="w-full py-16 md:py-24 border-t border-white/5">
       <div className="container mx-auto px-4">
         <div className="mb-12 text-center">
           <h2 className="text-3xl font-bold md:text-5xl">
@@ -144,9 +143,11 @@ export default function InvistaSection() {
 
         {/* Botão de Ação */}
         <div className="mt-12 flex justify-center">
-          <Link
-            href="/contato"
-            className="group inline-flex items-center gap-2 md:gap-3 rounded-full bg-red-500 px-6 py-3 md:px-8 md:py-4 text-base md:text-lg font-bold text-white shadow-lg shadow-red-500/20 transition-all hover:bg-red-600 hover:scale-105"
+          <a
+            href="https://wa.me/554699007494?text=Ol%C3%A1!%20Quero%20contratar%20os%20servi%C3%A7os%20da%20Assessoria%2074."
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group inline-flex items-center gap-2 md:gap-3 rounded-full bg-orange-500 px-6 py-3 md:px-8 md:py-4 text-base md:text-lg font-bold text-white shadow-lg shadow-orange-500/20 transition-all hover:bg-orange-600 hover:scale-105"
           >
             Contrate a 74
             <span className="flex h-6 w-6 md:h-8 md:w-8 items-center justify-center rounded-full bg-white/20 text-white transition-transform group-hover:translate-x-1">
@@ -154,7 +155,7 @@ export default function InvistaSection() {
                 <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
               </svg>
             </span>
-          </Link>
+          </a>
         </div>
       </div>
     </section>

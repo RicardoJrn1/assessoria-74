@@ -1,6 +1,6 @@
-import type React from "react"
 import type { Metadata, Viewport } from "next"
 import { Inter, Montserrat } from "next/font/google"
+import BackgroundStrokes from "../components/background-strokes"
 import "./globals.css"
 
 const inter = Inter({
@@ -19,7 +19,27 @@ const montserrat = Montserrat({
 
 export const metadata: Metadata = {
   title: "Assessoria 74",
-  description: "",
+  description:
+    "Assessoria 74 - Especialistas em marketing de performance e vendas. +400 milhões em receita gerada para nossos clientes. Tráfego pago, estratégia digital e resultados reais.",
+  openGraph: {
+    title: "Assessoria 74 - Marketing de Performance e Vendas",
+    description:
+      "+400 milhões em receita gerada. Tráfego pago, estratégia digital e resultados reais para o seu negócio.",
+    url: "https://assessoria74.com.br",
+    siteName: "Assessoria 74",
+    type: "website",
+    locale: "pt_BR",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Assessoria 74 - Marketing de Performance e Vendas",
+    description:
+      "+400 milhões em receita gerada. Tráfego pago, estratégia digital e resultados reais para o seu negócio.",
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 }
 
 export const viewport: Viewport = {
@@ -28,19 +48,14 @@ export const viewport: Viewport = {
   viewportFit: "cover",
 }
 
+const leftEdge = "12%"
+const midLine = "50%"
+const rightEdge = "88%"
+const topEdge = "12%"
+const bottomEdge = "88%"
+const lineOpacity = 0.09
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-  // Ajuste fino aqui (posições do “quadrado”)
-  const leftEdge = "12%"
-  const midLine = "50%"
-  const rightEdge = "88%"
-
-  // Altura do “quadrado” (linhas horizontais)
-  const topEdge = "12%"
-  const bottomEdge = "88%"
-
-  // Opacidade das linhas (bem sutil, estilo print)
-  const lineOpacity = 0.09
-
   return (
     <html lang="pt-BR" className="scroll-smooth">
       <body
@@ -58,7 +73,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
           {/* Grade/linhas estilo print */}
           <div className="absolute inset-0">
-            {/* 3 linhas verticais (mantendo como já estavam) */}
             {[leftEdge, midLine, rightEdge].map((left) => (
               <div
                 key={left}
@@ -67,7 +81,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               />
             ))}
 
-            {/* 2 linhas horizontais “fechando o quadrado” */}
             {[topEdge, bottomEdge].map((top) => (
               <div
                 key={top}
@@ -84,6 +97,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
           {/* Fade vertical */}
           <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/40 to-black/90" />
+
+          {/* Traços subindo */}
+          <BackgroundStrokes />
         </div>
 
         <main className="flex flex-col min-h-screen">{children}</main>

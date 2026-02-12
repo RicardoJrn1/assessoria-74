@@ -1,9 +1,10 @@
-"use client";
+"use client"
 
-import React, { useEffect, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import Link from "next/link";
-import { HiBars3, HiXMark } from "react-icons/hi2";
+import { useEffect, useState } from "react"
+import { motion, AnimatePresence } from "framer-motion"
+import Image from "next/image"
+import Link from "next/link"
+import { HiBars3, HiXMark } from "react-icons/hi2"
 
 const navLinks = [
   { name: "Início", href: "/#inicio" },
@@ -11,37 +12,35 @@ const navLinks = [
   { name: "Soluções", href: "/#solucoes" },
   { name: "Resultados", href: "/#resultados" },
   { name: "Blog", href: "/blog" },
-];
+]
 
-export const Header: React.FC = () => {
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+export default function Header() {
+  const [isScrolled, setIsScrolled] = useState(false)
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
-  // Efeito do header ao scroll
   useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 10);
-    window.addEventListener("scroll", handleScroll);
-    handleScroll();
+    const handleScroll = () => setIsScrolled(window.scrollY > 10)
+    window.addEventListener("scroll", handleScroll)
+    handleScroll()
 
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+    return () => window.removeEventListener("scroll", handleScroll)
+  }, [])
 
-  // Trava scroll + ESC fecha menu
   useEffect(() => {
-    if (!mobileMenuOpen) return;
+    if (!mobileMenuOpen) return
 
     const onKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setMobileMenuOpen(false);
-    };
+      if (e.key === "Escape") setMobileMenuOpen(false)
+    }
 
-    document.addEventListener("keydown", onKeyDown);
-    document.body.style.overflow = "hidden";
+    document.addEventListener("keydown", onKeyDown)
+    document.body.style.overflow = "hidden"
 
     return () => {
-      document.removeEventListener("keydown", onKeyDown);
-      document.body.style.overflow = "";
-    };
-  }, [mobileMenuOpen]);
+      document.removeEventListener("keydown", onKeyDown)
+      document.body.style.overflow = ""
+    }
+  }, [mobileMenuOpen])
 
   return (
     <>
@@ -58,10 +57,20 @@ export const Header: React.FC = () => {
           {/* Logo */}
           <Link
             href="/"
-            className="text-3xl font-extrabold text-orange-500 z-50"
+            className="z-50 flex items-center gap-3"
             onClick={() => setMobileMenuOpen(false)}
           >
-            74
+            <Image
+              src="/logo-74.png"
+              alt="Assessoria 74"
+              width={48}
+              height={48}
+              className="h-10 w-auto md:h-12"
+              priority
+            />
+            <span className="text-white font-bold text-lg md:text-xl tracking-tight">
+              Assessoria <span className="text-orange-500">74</span>
+            </span>
           </Link>
 
           {/* Desktop Nav */}
@@ -79,13 +88,15 @@ export const Header: React.FC = () => {
           </nav>
 
           {/* Desktop CTA */}
-          <Link
-            href="/#contato"
+          <a
+            href="https://wa.me/554699007494?text=Ol%C3%A1!%20Gostaria%20de%20falar%20com%20um%20especialista%20da%20Assessoria%2074."
+            target="_blank"
+            rel="noopener noreferrer"
             className="hidden md:inline-block px-6 py-2 bg-orange-500 text-white font-bold rounded-full
                       hover:bg-orange-600 transition-colors shadow-lg hover:shadow-orange-500/20"
           >
             Fale com um especialista
-          </Link>
+          </a>
 
           {/* Mobile Toggle */}
           <button
@@ -149,20 +160,20 @@ export const Header: React.FC = () => {
                 </ul>
 
                 {/* CTA */}
-                <Link
-                  href="/#contato"
+                <a
+                  href="https://wa.me/554699007494?text=Ol%C3%A1!%20Gostaria%20de%20falar%20com%20um%20especialista%20da%20Assessoria%2074."
+                  target="_blank"
+                  rel="noopener noreferrer"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="w-full py-4 bg-orange-500 text-white font-bold rounded-xl text-center hover:bg-orange-600 transition-colors shadow-lg"
+                  className="w-full py-4 bg-orange-500 text-white font-bold rounded-xl text-center hover:bg-orange-600 transition-colors shadow-lg block"
                 >
                   Fale com um especialista
-                </Link>
+                </a>
               </div>
             </motion.div>
           </>
         )}
       </AnimatePresence>
     </>
-  );
-};
-
-export default Header;
+  )
+}

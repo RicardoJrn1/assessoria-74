@@ -1,11 +1,40 @@
-"use client";
+"use client"
 
-import React from "react";
-import { motion } from "framer-motion";
+import { useEffect, useRef, useState } from "react"
+import { motion, useInView } from "framer-motion"
+
+function AnimatedCounter({ target, duration = 2 }: { target: number; duration?: number }) {
+  const [count, setCount] = useState(0)
+  const ref = useRef<HTMLSpanElement>(null)
+  const isInView = useInView(ref, { once: true })
+
+  useEffect(() => {
+    if (!isInView) return
+
+    let startTime: number | null = null
+    let animationFrame: number
+
+    const step = (timestamp: number) => {
+      if (!startTime) startTime = timestamp
+      const progress = Math.min((timestamp - startTime) / (duration * 1000), 1)
+      const eased = 1 - Math.pow(1 - progress, 3)
+      setCount(Math.floor(eased * target))
+
+      if (progress < 1) {
+        animationFrame = requestAnimationFrame(step)
+      }
+    }
+
+    animationFrame = requestAnimationFrame(step)
+    return () => cancelAnimationFrame(animationFrame)
+  }, [isInView, target, duration])
+
+  return <span ref={ref}>{count}</span>
+}
 
 export default function QuatrocentosMilhoesSection() {
   return (
-    <section className="w-full py-16 bg-red-600">
+    <section className="w-full py-8 md:py-12 bg-red-600">
       <div className="container mx-auto px-4 text-center text-white">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -14,7 +43,7 @@ export default function QuatrocentosMilhoesSection() {
           transition={{ duration: 0.6 }}
         >
           <h2 className="text-5xl md:text-7xl font-bold tracking-tight">
-            + R$400 Milhões
+            + R$<AnimatedCounter target={400} /> Milhões
           </h2>
           <p className="mt-2 text-lg md:text-xl font-medium text-white/80">
             Contribuídos em Receita
@@ -22,5 +51,5 @@ export default function QuatrocentosMilhoesSection() {
         </motion.div>
       </div>
     </section>
-  );
+  )
 }

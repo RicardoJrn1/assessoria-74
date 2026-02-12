@@ -1,13 +1,13 @@
-"use client";
+"use client"
 
-import React, { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { HiChevronDown } from "react-icons/hi2";
+import { useState } from "react"
+import { motion, AnimatePresence } from "framer-motion"
+import { HiChevronDown } from "react-icons/hi2"
 
 const faqs = [
   {
     question: "Como funciona?",
-    answer: "O resultado depende de uma boa estratégia e execução consistente. Nosso trabalho é garantir que você tenha não apenas visibilidade, mas oportunidades reais de venda. São mais de 400 milhões em vendas para pequenas, médias e grandes empresas, por que motivo não funcionária com a sua empresa?",
+    answer: "O resultado depende de uma boa estratégia e execução consistente. Nosso trabalho é garantir que você tenha não apenas visibilidade, mas oportunidades reais de venda. São mais de 400 milhões em vendas para pequenas, médias e grandes empresas, por que motivo não funcionaria com a sua empresa?",
   },
   {
     question: "Em quanto tempo vejo os primeiros resultados?",
@@ -27,23 +27,23 @@ const faqs = [
   },
   {
     question: "Como funciona o contrato?",
-    answer: "A maioria dos clientes começa com contrato trimestral para construir base sólida. Depois, ajustamos conforme seu crescimento. Cancelamento é simples, com aviso prévio de 30 dias. "
+    answer: "A maioria dos clientes começa com contrato trimestral para construir base sólida. Depois, ajustamos conforme seu crescimento. Cancelamento é simples, com aviso prévio de 30 dias.",
   },
   {
     question: "Vocês têm cases de sucesso?",
-    answer: "Sim! São mais de 400 milhões em resultados. Tendo em nosso portifólio grandes empresas. Trabalhamos com diversos setores: food service, varejo, moda, fitness, educação, e-commerce, Dentistas, Médicos, eventos software. Se você tem uma empresa, podemos te atender. Podemos compartilhar cases similares ao seu negócio.",
+    answer: "Sim! São mais de 400 milhões em resultados. Tendo em nosso portfólio grandes empresas. Trabalhamos com diversos setores: food service, varejo, moda, fitness, educação, e-commerce, Dentistas, Médicos, eventos software. Se você tem uma empresa, podemos te atender. Podemos compartilhar cases similares ao seu negócio.",
   },
-];
+]
 
-const FaqSection: React.FC = () => {
-  const [activeIndex, setActiveIndex] = useState<number | null>(null);
+export default function FaqSection() {
+  const [activeIndex, setActiveIndex] = useState<number | null>(null)
 
   const toggleIndex = (index: number) => {
-    setActiveIndex(activeIndex === index ? null : index);
-  };
+    setActiveIndex(activeIndex === index ? null : index)
+  }
 
   return (
-    <section className="w-full py-12 text-white">
+    <section className="w-full py-16 md:py-24 text-white border-t border-white/5">
       <div className="container mx-auto px-4 max-w-4xl">
         <div className="mb-16 text-center">
           <motion.h2
@@ -67,52 +67,62 @@ const FaqSection: React.FC = () => {
         </div>
 
         <div className="space-y-4">
-          {faqs.map((faq, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              className={`border rounded-2xl bg-white/5 overflow-hidden transition-colors duration-300 ${
-                activeIndex === index ? "border-orange-500/50" : "border-white/10"
-              }`}
-            >
-              <button
-                onClick={() => toggleIndex(index)}
-                className="flex items-center justify-between w-full p-6 text-left focus:outline-none"
+          {faqs.map((faq, index) => {
+            const isOpen = activeIndex === index
+            const panelId = `faq-panel-${index}`
+            const buttonId = `faq-button-${index}`
+
+            return (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                className={`border rounded-2xl bg-white/5 overflow-hidden transition-colors duration-300 ${
+                  isOpen ? "border-orange-500/50" : "border-white/10"
+                }`}
               >
-                <span className={`text-lg font-semibold transition-colors ${activeIndex === index ? "text-white" : "text-white/80"}`}>
-                  {faq.question}
-                </span>
-                <motion.span
-                  animate={{ rotate: activeIndex === index ? 180 : 0 }}
-                  transition={{ duration: 0.3 }}
-                  className={`ml-4 ${activeIndex === index ? "text-orange-500" : "text-white/40"}`}
+                <button
+                  id={buttonId}
+                  onClick={() => toggleIndex(index)}
+                  aria-expanded={isOpen}
+                  aria-controls={panelId}
+                  className="flex items-center justify-between w-full p-6 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 focus-visible:ring-offset-2 focus-visible:ring-offset-[#070708] rounded-2xl"
                 >
-                  <HiChevronDown className="w-6 h-6" />
-                </motion.span>
-              </button>
-              <AnimatePresence>
-                {activeIndex === index && (
-                  <motion.div
-                    initial={{ height: 0, opacity: 0 }}
-                    animate={{ height: "auto", opacity: 1 }}
-                    exit={{ height: 0, opacity: 0 }}
-                    transition={{ duration: 0.3, ease: "easeInOut" }}
+                  <span className={`text-lg font-semibold transition-colors ${isOpen ? "text-white" : "text-white/80"}`}>
+                    {faq.question}
+                  </span>
+                  <motion.span
+                    animate={{ rotate: isOpen ? 180 : 0 }}
+                    transition={{ duration: 0.3 }}
+                    className={`ml-4 ${isOpen ? "text-orange-500" : "text-white/40"}`}
                   >
-                    <div className="px-6 pb-6 text-white/60 leading-relaxed">
-                      {faq.answer}
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </motion.div>
-          ))}
+                    <HiChevronDown className="w-6 h-6" />
+                  </motion.span>
+                </button>
+                <AnimatePresence>
+                  {isOpen && (
+                    <motion.div
+                      id={panelId}
+                      role="region"
+                      aria-labelledby={buttonId}
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.3, ease: "easeInOut" }}
+                    >
+                      <div className="px-6 pb-6 text-white/60 leading-relaxed">
+                        {faq.answer}
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </motion.div>
+            )
+          })}
         </div>
       </div>
     </section>
-  );
-};
-
-export default FaqSection;
+  )
+}
