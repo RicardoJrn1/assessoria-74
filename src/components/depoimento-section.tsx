@@ -48,24 +48,35 @@ export default function DepoimentoSection() {
           onMouseEnter={() => setIsPaused(true)}
           onMouseLeave={() => setIsPaused(false)}
         >
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={currentIndex}
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -20 }}
-              transition={{ duration: 0.3 }}
-              className="w-full max-w-3xl"
-            >
-              <Image
-                src={testimonials[currentIndex]}
-                alt={`Depoimento de cliente ${currentIndex + 1}`}
-                width={768}
-                height={432}
-                className="w-full rounded-2xl shadow-2xl"
-              />
-            </motion.div>
-          </AnimatePresence>
+          <div className="relative w-full max-w-3xl">
+            {/* Imagem invisível para manter a altura natural do container */}
+            <Image
+              src={testimonials[0]}
+              alt=""
+              width={768}
+              height={432}
+              className="w-full rounded-2xl invisible"
+              aria-hidden="true"
+            />
+            <AnimatePresence initial={false}>
+              <motion.div
+                key={currentIndex}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.3 }}
+                className="absolute inset-0"
+              >
+                <Image
+                  src={testimonials[currentIndex]}
+                  alt={`Depoimento de cliente ${currentIndex + 1}`}
+                  width={768}
+                  height={432}
+                  className="w-full rounded-2xl shadow-2xl"
+                />
+              </motion.div>
+            </AnimatePresence>
+          </div>
 
           <div className="flex gap-4 mt-4 md:contents">
             {/* Botão Anterior */}
