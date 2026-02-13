@@ -64,7 +64,7 @@ export default function QuemSomosSection() {
                     alt={`Membro da equipe Assessoria 74`}
                     width={300}
                     height={300}
-                    className={`w-full h-full object-cover ${num === 1 ? "object-[50%_25%]" : "object-top"} grayscale hover:grayscale-0 transition-all duration-500`}
+                    className={`w-full h-full object-cover ${num === 1 ? "object-[50%_25%]" : "object-top"} transition-all duration-500`}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
                 </div>

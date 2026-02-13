@@ -18,10 +18,10 @@ export default function HeroSection() {
   const [selectedId, setSelectedId] = useState<number | null>(null)
 
   return (
-    <section id="inicio" className="relative min-h-screen overflow-hidden">
+    <section id="inicio" className="relative min-h-[70vh] md:min-h-screen overflow-hidden">
       {/* Conteúdo */}
       <div className="relative z-10 container mx-auto px-4">
-        <div className="flex min-h-screen flex-col items-center">
+        <div className="flex min-h-[70vh] md:min-h-screen flex-col items-center">
           {/* Topo do Hero */}
           <div className="pt-28 md:pt-36 text-center max-w-5xl">
             <motion.h1
@@ -82,7 +82,7 @@ export default function HeroSection() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.55 }}
-              className="mt-24 flex justify-center -space-x-6"
+              className="mt-18 md:mt-24 flex justify-center -space-x-6"
             >
               {[1, 2, 3, 4].map((num) => (
                 <Image

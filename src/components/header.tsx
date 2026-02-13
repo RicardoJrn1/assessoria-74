@@ -68,7 +68,7 @@ export default function Header() {
               className="h-10 w-auto md:h-12"
               priority
             />
-            <span className="text-white font-bold text-lg md:text-xl tracking-tight">
+            <span className="hidden md:inline text-white font-bold text-lg md:text-xl tracking-tight">
               Assessoria <span className="text-orange-500">74</span>
             </span>
           </Link>

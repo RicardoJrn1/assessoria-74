@@ -48,14 +48,14 @@ export default function DepoimentoSection() {
           onMouseEnter={() => setIsPaused(true)}
           onMouseLeave={() => setIsPaused(false)}
         >
-          <div className="relative w-full max-w-3xl">
+          <div className="relative w-full max-w-3xl overflow-hidden shadow-2xl">
             {/* Imagem invisível para manter a altura natural do container */}
             <Image
               src={testimonials[0]}
               alt=""
               width={768}
               height={432}
-              className="w-full rounded-2xl invisible"
+              className="w-full invisible"
               aria-hidden="true"
             />
             <AnimatePresence initial={false}>
@@ -72,7 +72,7 @@ export default function DepoimentoSection() {
                   alt={`Depoimento de cliente ${currentIndex + 1}`}
                   width={768}
                   height={432}
-                  className="w-full rounded-2xl shadow-2xl"
+                  className="w-full h-full object-contain"
                 />
               </motion.div>
             </AnimatePresence>

@@ -3,33 +3,38 @@
 import { useEffect, useRef, useState } from "react"
 import { motion, useInView } from "framer-motion"
 
-function AnimatedCounter({ target, duration = 2 }: { target: number; duration?: number }) {
+function AnimatedCounter({ target, duration = 2, delay = 0 }: { target: number; duration?: number; delay?: number }) {
   const [count, setCount] = useState(0)
   const ref = useRef<HTMLSpanElement>(null)
-  const isInView = useInView(ref, { once: true })
+  const isInView = useInView(ref, { once: true, amount: 0.5 })
+  const hasStarted = useRef(false)
 
   useEffect(() => {
-    if (!isInView) return
+    if (!isInView || hasStarted.current) return
+    hasStarted.current = true
 
-    let startTime: number | null = null
-    let animationFrame: number
+    const timeout = setTimeout(() => {
+      let startTime: number | null = null
+      let animationFrame: number
 
-    const step = (timestamp: number) => {
-      if (!startTime) startTime = timestamp
-      const progress = Math.min((timestamp - startTime) / (duration * 1000), 1)
-      const eased = 1 - Math.pow(1 - progress, 3)
-      setCount(Math.floor(eased * target))
+      const step = (timestamp: number) => {
+        if (!startTime) startTime = timestamp
+        const progress = Math.min((timestamp - startTime) / (duration * 1000), 1)
+        const eased = 1 - Math.pow(1 - progress, 3)
+        setCount(Math.floor(eased * target))
 
-      if (progress < 1) {
-        animationFrame = requestAnimationFrame(step)
+        if (progress < 1) {
+          animationFrame = requestAnimationFrame(step)
+        }
       }
-    }
 
-    animationFrame = requestAnimationFrame(step)
-    return () => cancelAnimationFrame(animationFrame)
-  }, [isInView, target, duration])
+      animationFrame = requestAnimationFrame(step)
+    }, delay * 1000)
 
-  return <span ref={ref}>{count}</span>
+    return () => clearTimeout(timeout)
+  }, [isInView, target, duration, delay])
+
+  return <span ref={ref} className="inline-block tabular-nums">{count}</span>
 }
 
 export default function QuatrocentosMilhoesSection() {
@@ -43,7 +48,7 @@ export default function QuatrocentosMilhoesSection() {
           transition={{ duration: 0.6 }}
         >
           <h2 className="text-5xl md:text-7xl font-bold tracking-tight">
-            + R$<AnimatedCounter target={400} /> Milhões
+            + R$<AnimatedCounter target={400} delay={0.7} /> Milhões
           </h2>
           <p className="mt-2 text-lg md:text-xl font-medium text-white/80">
             Contribuídos em Receita
